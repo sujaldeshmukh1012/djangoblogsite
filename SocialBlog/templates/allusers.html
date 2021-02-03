@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+  <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            
+
+
+            <div class="row"><!--row-->
+              {% for profile in profile %}
+               <div class="col-12  col-lg-4">
+                <div class="card author-box card-primary">
+                  <div class="card-body">
+                    <div class="author-box-left">
+                      {% if profile.picture %}
+                      <img alt="image" src="{{profile.picture.url}}" class="rounded author-box-picture">
+                      {% else %}
+                      <img alt="image" src="https://bulma.io/images/placeholders/96x96.png" class="rounded author-box-picture">
+                      {% endif %}
+
+                      <div class="clearfix"></div>
+                      
+                    </div>
+                    <div class="author-box-details">
+                      <div class="author-box-name">
+                        <a href="{% url 'profile' profile.user %}">{{profile.user.username}}</a>
+                      </div>
+                      
+                      
+                      
+                      <div class="float-right mt-sm-0 mt-3">
+                        <a href="{% url 'profile' profile.user %}" class="btn">View Profile <i class="fas fa-chevron-right"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    </div>
+               
+                  {% endfor %}
+
+                </div><!--row-->
+
+
+
+            </div>
+          </section>
+        </div>
+
+{% endblock %}

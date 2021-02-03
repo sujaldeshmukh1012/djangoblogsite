@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+        
+{% block content %}
+
+      <!-- Main Content -->
+  <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+
+                     <div class="tab-pane fade  show active" id="settings" role="tabpanel"  aria-labelledby="profile-tab2">
+                         <form method="post" enctype="multipart/form-data" action="" role="form">
+                           {% csrf_token %}
+
+                          <div class="card-header">
+                            <h4>Edit Profile</h4>
+                          </div>
+                          <div class="card-body">
+
+                            
+   <h6 style="display: flex;justify-content: center;align-items: center;">Tap to chango profile picture</h6>  
+
+          <div id="imagePreview" class="image-preview" style="margin-left: auto;margin-right:auto;margin-bottom: 10px;display: flex;justify-content: center;align-items: center;">
+                         {% if profile.picture is True %}
+                          <img src="{{ profile.picture.url }}" alt="" id="output"  class="image-preview__image  img-fluid rounded mx-auto d-block " >
+                          {% else %}
+                          <img src="" alt="" id="output"  class="image-preview__image  img-fluid rounded mx-auto d-block " >
+                          {% endif %}
+                             <input type="file" name="picture" accept="image/*" id="id_picture"  onchange="loadFile(event)"  >
+                           
+                      </div>
+                        
+                            <div class="row">
+                              <div class="form-group col-md-6 col-12">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" >
+                                <div class="invalid-feedback">
+                                    {{ form.first_name }}
+                                </div>
+                              </div>
+                              <div class="form-group col-md-6 col-12">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" >
+                                <div class="invalid-feedback">
+                                    {{ form.last_name }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-7 col-12">
+                                <label>City</label>
+                                <input type="Text" class="form-control" >
+                                <div class="invalid-feedback">
+                                  {{ form.location }}
+                                </div>
+                              </div>
+                              <div class="form-group col-md-5 col-12">
+                                <label>Website Url(optional)</label>
+                                <input type="url" class="form-control" >
+                                <div class="invalid-feedback">
+                                  {{ form.url }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-12">
+                                <label>Personal Info</label>
+                                <input type="text" class="form-control" >
+                                <div class="invalid-feedback">
+                                  {{ form.profile_info }}
+                                </div>
+                              </div>
+                            </div>
+                           
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-footer text-right">
+                            <button type="submit" value="login" class="btn btn-success">Save Changes</button>
+                         
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+</div>
+
+</form></div></div></section></div>
+
+
+
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
+
+
+
+
+  
+
+{% endblock %}

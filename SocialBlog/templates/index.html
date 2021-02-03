@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<div class="main-content">
+        <section class="section">
+          <div class="section-body">
+ <div class="row">
+
+{% for post_item in post_items %}
+              
+             <div class="col-12 col-md-4 col-lg-4">
+                <article class="article article-style-c">
+                  <div class="article-header" style="border-radius: 10px">
+                    <div class="article-image " data-background="{{ post_item.picture.url }}">
+                    </div>
+                  </div>
+                  <div class="article-details" >
+                    <div class="article-category "><p> {% for tag in post_item.tags.all %}<a href="{{ tag.get_absolute_url }}" class="badge badge-pill badge-infoṭ text-white">#{{ tag }}</a>{% endfor %}</p>
+                      <div class="bullet"></div> <a href="#">{{ post_item.posted | naturaltime }}</a>
+                    </div>
+                    <div class="article-title">
+                      <h2><a href="{{ post_item.get_absolute_url }}">{{post_item.title}}</a></h2>
+                    </div>
+
+                    <p class="mx-auto d-block"> {{ post_item.caption|truncatechars:150|safe }}</p>
+                    <div class="article-user">
+                       {% if post_item.user.profile.picture %}
+            <img src="{{ post_item.user.profile.picture.url }}" alt="Placeholder image">
+          {% else %}
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+          {% endif %}
+                      <div class="article-user-details" style="margin-top: 8%">
+                        <div class="user-detail-name">
+                          <a href="{% url 'profile' post_item.user %}" >  {{ post_item.user.username }}</a>
+                        </div>
+                        
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+    {% endfor %}
+
+
+ 
+
+</div></div></section></div>
+{% endblock %}

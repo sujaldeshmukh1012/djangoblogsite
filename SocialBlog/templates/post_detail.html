@@ -1,0 +1,517 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-content">
+        <section class="section">
+          <div class="section-body">
+
+
+
+                     <div class="card-body">
+                    
+                    <div class="chocolat-parent">
+                      
+                        <div data-crop-image="285">
+                          <img alt="Placeholder image" src="{{post.picture.url}}" class="img-fluid rounded mx-auto d-block"style=" border-radius: 10px;box-shadow: 10px;height:100%;justify-content: space-around;">
+                            </div>
+                            <div style="text-align: left;margin:auto">
+                       
+
+
+                      <div class="article-category">{% for tag in post.tags.all %} <p class="badge badge-pill badge-danger text-white"><a href="{{ tag.get_absolute_url }}" style="color:white;text-decoration:none; ">#{{ tag }}</a></p>{% endfor %}
+                       
+
+                       <p>{{ post.posted |naturaltime}}</</p>
+                       <h2 >{{post.title|safe}}</h2>
+                       <h6>{{ post.caption|safe }}</h6>
+
+
+        
+                  <div class="float" style="padding: 10px">
+                   
+                   <span><a href="{% url 'postlike' post.id %}">  <i class="fas fa-thumbs-up btn btn-outline-primary"></i></a> <strong> {{ post.likes }} </strong></span>
+                   
+                   <span><a href="">  <i class="fas fa-share btn btn-outline-dark"></i></a></span>
+                   <span><i class="fas fa-envelope btn btn-outline-info"></i></span>
+                   </div>
+                 
+                     </div>
+                   </div>
+                 </div>
+                   
+                    
+             <div style="background:#000;font-size: 2px;border-radius: 5px">a</div>
+                <div class="card profile-widget" style="text-align: left;">
+                  <div class="profile-widget-header">
+                    {% if post.user.profile.picture %}
+                    <img alt="image" src="{{ post.user.profile.picture.url }}" class="rounded-circle profile-widget-picture" style="height: 10%" >
+                    {% else %}
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+          {% endif %}
+          
+                    <div class="profile-widget-items">
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Posts</div>
+                        <div class="profile-widget-item-value">{{ posts_count }}</div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Followers</div>
+                        <div class="profile-widget-item-value">{{ followers_count }}</div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Following</div>
+                        <div class="profile-widget-item-value">{{ following_count }}</div>
+                      </div>
+
+
+  
+
+                  </div>
+
+                  <div class="profile-widget-description pb-0">
+                    {% if post.user.profile.first_name %}
+                  <div class="profile-widget-name"><a href="{% url 'profile' post.user %}">{{ post.user.profile.first_name }} </a><div class="text-muted d-inline font-weight-normal">
+                    {% else %}
+                  <div class="profile-widget-name"><a href="{% url 'profile' post.user %}">@{{ post.user.username }} </a><div class="text-muted d-inline font-weight-normal">
+                    {% endif %}
+                        <div class="slash"></div>Writer
+                      </div>
+
+                    </div>
+
+                    {% if post.user.profile_info %}
+                    <p>{{post.user.profile_info}}</p>
+                  {% else %}
+                  <p style="text-align:center; ">Info Unavailable</p>
+                  {% endif%}
+                  </div>
+
+                  <div class="card-footer text-center pt-0">
+                    <div class="font-weight-bold mb-2 text-small">Follow {{ post.user.profile.first_name }} On</div>
+                    <a href="#" class="btn btn-social-icon mr-1 btn-facebook">
+                      <a href="{{profile.facebook}}" class="btn btn-social-icon mr-1 btn-facebook">
+                        <img src="{% static 'assets/img/facebook.svg' %}">
+                    </a>
+                    <a href="#" class="btn btn-social-icon mr-1 btn-twitter">
+                      <img src="{% static 'assets/img/instagram.svg' %}">
+                    </a>
+                    <a href="#" class="btn btn-social-icon mr-1 btn-github">
+                      <img src="{% static 'assets/img/github.svg' %}">
+                    </a>
+                    <a href="#" class="btn btn-social-icon mr-1 btn-instagram">
+                      <img src="{% static 'assets/img/twitter.svg' %}">
+                    </a>
+                    <div class="float-right mt-sm-0 mt-3">
+                        <a href="#" class="btn">View Profile <i class="fas fa-chevron-right"></i></a>
+                      </div>
+                  </div>
+                </div>
+                  
+                </div>
+              </div>
+
+
+
+
+
+
+                    <div class="form-group">
+                      <h5>Add a comment </h5>
+                      <div class="row">
+                        
+                         {% if request.user.profile.picture %}
+                  <img alt="image" src="{{ request.user.profile.picture.url }}" class="user-img " style="width:10%;height:10%;margin-left: 20px;border-radius: 5px" >
+      {% else %}
+        <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+      {% endif %}
+
+
+
+        
+           <form method="post" action="" role="form">
+            {% csrf_token %}
+            <div class="card profile-widget-items" style="border-radius: 10px;height: 50%;width:150%;margin-left: 10px">
+            {{ form.body }}
+        </div>
+          
+          
+       
+  
+                      <div class="form-group text-right">
+                        <button type="submit" class="btn btn-round btn-lg btn-primary">
+                          Add Comment
+                        </button>
+</div>
+</div></form>
+
+{% for comment in comments %}
+                      <div class="card" style="margin-left: 2%;margin-right: 2%">
+                <div class="card-header">
+                       <div class="support-ticket media pb-1 mb-3">
+
+                {% if comment.user.profile.picture %}
+                    <img src="{{ comment.user.profile.picture.url }}" class="user-img mr-2" alt="">
+                  {% else %}
+                  <img src="https://bulma.io/images/placeholders/96x96.png" class="user-img mr-2" alt="">
+                    {% endif %}
+
+
+                    <div class="media-body ml-3">
+                      
+
+
+
+
+
+                      {% if comment.user.profile.first_name %}
+                      <div class="font-weight-bold float-left"> <strong>{{ comment.user.profile.first_name }} {% if comment.user.profile.last_name == True %} {{ comment.user.profile.last_name }} {% else %} {% endif %}</strong><small> @{{ comment.user.username }}</small></div>
+                       {% else %}
+                                <strong>@{{comment.user.username}}</strong>
+                              {% endif %}
+
+
+                      
+                     <br> <p class="my-1" style="text-align: left;">{{ comment.body }}.</p>
+                      <small class="text-muted">Commented by <span class="font-weight-bold font-13">@{{comment.user.username}}
+                        </span>
+                        &nbsp;&nbsp; {{ comment.date }}</small>
+                      </div></div>  </div></div>
+
+{% endfor %}
+
+
+
+
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <!--<label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </th>
+                            <th colspan="3">
+                              <div class="inbox-header">
+                                <div class="mail-option">
+                                  <div class="email-btn-group m-l-15">
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="back"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">keyboard_return</i>
+                                    </a>
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="Archive"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">archive</i>
+                                    </a>
+                                    <div class="p-r-20">|</div>
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="Error"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">error</i>
+                                    </a>
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="Delete"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">delete</i>
+                                    </a>
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="Folders"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">folder</i>
+                                    </a>
+                                    <a href="#" class="col-dark-gray waves-effect m-r-20" title="Tag"
+                                      data-toggle="tooltip">
+                                      <i class="material-icons">local_offer</i>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </th>
+                            <th class="hidden-xs" colspan="2">
+                              <div class="pull-right">
+                                <div class="email-btn-group m-l-15">
+                                  <a href="#" class="col-dark-gray waves-effect m-r-20" title="previous"
+                                    data-toggle="tooltip">
+                                    <i class="material-icons">navigate_before</i>
+                                  </a>
+                                  <a href="#" class="col-dark-gray waves-effect m-r-20" title="next"
+                                    data-toggle="tooltip">
+                                    <i class="material-icons">navigate_next</i>
+                                  </a>
+                                </div>
+                              </div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="unread">
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Nelson Lane</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-primary">Work</span>
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> 12:30 PM </td>
+                          </tr>
+                          <tr class="unread">
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons text-warning">star</i>
+                            </td>
+                            <td class="hidden-xs">Kerry Mann</td>
+                            <td class="max-texts">
+                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 13 </td>
+                          </tr>
+                          <tr class="unread">
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Adam Peters</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-secondary">Shopping</span>
+                                Lorem ipsum perspiciatis unde omnis</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 12 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Lula Reese</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-success">Family</span>
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 12 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Nelson Lane</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 12 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons text-warning">star</i>
+                            </td>
+                            <td class="hidden-xs">Kerry Mann</td>
+                            <td class="max-texts">
+                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 11 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Adam Peters</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-info">Office</span>
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 11 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Lula Reese</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 11 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Nelson Lane</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-danger">Work</span>
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 10 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons text-warning">star</i>
+                            </td>
+                            <td class="hidden-xs">Kerry Mann</td>
+                            <td class="max-texts">
+                              <a href="#">Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 10 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Adam Peters</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                <span class="badge badge-secondary">Shopping</span>
+                                Lorem ipsum perspiciatis unde omnis</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 10 </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-checkbox">
+                              <label class="form-check-label">
+                                <input type="checkbox">
+                                <span class="form-check-sign"></span>
+                              </label>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">star_border</i>
+                            </td>
+                            <td class="hidden-xs">Lula Reese</td>
+                            <td class="max-texts">
+                              <a href="#">
+                                Lorem ipsum perspiciatis unde omnis iste natus</a>
+                            </td>
+                            <td class="hidden-xs">
+                              <i class="material-icons">attach_file</i>
+                            </td>
+                            <td class="text-right"> May 09 </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-7 ">
+                        <p class="p-15">Showing 1 - 15 of 200</p>-->

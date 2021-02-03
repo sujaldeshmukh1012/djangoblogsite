@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="main-content">
+        <section class="section">
+          <div class="section-body">
+ <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <form method="post" action="" enctype="multipart/form-data" role="form">
+    {% csrf_token %}
+                    <h4>Full Summernote</h4>
+                  
+                 
+
+                  <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Blog Poster</label>
+                      <div class="col-sm-12 col-md-7">
+                         <span style="color:black">Tap Below to Select an Image</span>
+                        <div id="imagePreview" class="image-preview" style="display: flex;align-items: center;justify-content: center;width: 100%">
+                         
+                          <img src="{% static 'assest/img/facebook.svg' %}" alt="" id="output"  class="image-preview__image  img-fluid rounded mx-auto d-block " style="width: 100%">
+
+                           <input type="file" name="image" accept="image/*" onchange="loadFile(event)" required id="id_image">
+                      </div>
+                             
+
+
+                          </div>
+                        
+
+                  <div class="card-body">
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                      <div class="col-sm-12 col-md-7">
+                        <div style="border:1px solid #C1C1C1">
+                        
+                        {{form.title}}
+                          </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tags</label>
+                      <div class="col-sm-12 col-md-7">
+                        <div style="border:1px solid #C1C1C1">
+                      {{form.tags}}
+                     
+                      </div>
+                     
+
+                      </div>
+
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
+                      <div class="col-sm-12 col-md-7">
+                        {{form.caption}}
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                      <div class="col-sm-12 col-md-7">
+                        <button class="btn btn-primary">Publish</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+</form></div></div></div></div></div></section></div>
+
+
+
+
+
+<img id="output"/>
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
+        
+{% endblock %}
