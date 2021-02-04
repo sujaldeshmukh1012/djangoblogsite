@@ -16,10 +16,10 @@ SECRET_KEY = 'acc$!c3v-h-s=sov@7a1ov#_f7i_y=r#fhg7c!hn7-4rl^s^dx'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ['localhost','https://gutsypro.herokuapp.com/']
 
 
-DEBUG = False
+
+DEBUG = True
 
 
 # Application definition
