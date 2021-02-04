@@ -1,5 +1,7 @@
 import os
+import django_heroku
 import dj_database_url
+from decoulpe import config 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,13 +12,12 @@ SITE_ID = 1
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-"""SECRET_KEY = 'acc$!c3v-h-s=sov@7a1ov#_f7i_y=r#fhg7c!hn7-4rl^s^dx'"""
+SECRET_KEY = 'acc$!c3v-h-s=sov@7a1ov#_f7i_y=r#fhg7c!hn7-4rl^s^dx'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = ['localhost']
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 DEBUG = False
 
@@ -50,12 +51,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'SocialBlog.urls'
@@ -176,5 +177,6 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '6b6135ebf188c2569854f1fb3044ac47'  # App Secret
 
 
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+
+
+django_heroku.settings(locals())
