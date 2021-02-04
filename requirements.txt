@@ -83,10 +83,6 @@ PyMsgBox==1.0.9
 pyOpenSSL==19.0.0
 pyperclip==1.8.1
 pypng==0.0.20
-PyQRCode==1.2.1
-PyRect==0.1.4
-PyScreeze==0.1.26
-PySimpleGUI==4.32.1
 python-crontab==2.5.1
 python-dateutil==2.8.1
 python-decouple==3.4
@@ -94,7 +90,6 @@ python-social-auth==0.2.1
 python3-openid==3.2.0
 PyTweening==1.0.3
 pytz==2020.1
-pywin32==300
 requests==2.25.0
 requests-oauthlib==0.3.1
 rsa==4.6
